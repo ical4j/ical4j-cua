@@ -19,20 +19,19 @@ import static org.ical4j.connector.ObjectCollection.DEFAULT_COLLECTION;
  * include only components of a single type and with the same UID.
  * <p>
  * The required inputs for this command are:
- * * collectionName -> the collection to add the calendar to
- * * calendarData -> data used to construct an iCalendar object
- * * outputHandler -> defines how output is handled on successful command completion
+ * * collectionName - the collection to add the calendar to
+ * * calendarData - data used to construct an iCalendar object
+ * * outputHandler - defines how output is handled on successful command completion
  * <p>
  * The outputs for this command are:
- * * uid -> the UID of the calendar that was successfully added to the collection
+ * * uid - the UID of the calendar that was successfully added to the collection
  * <p>
  * Command configuration options include:
- * * defaultCollection -> the default collection used if no collectionName is specified
- * * defaultOutputHandler -> the default output handler if none is specified
- * * generateUid -> whether to create a UID for the calendar if none exists
- * * overrideUid -> always replace any existing UID with an internally generated one (implies generateUID = true)
+ * * defaultCollection - the default collection used if no collectionName is specified
+ * * defaultOutputHandler - the default output handler if none is specified
+ * * generateUid - whether to create a UID for the calendar if none exists
+ * * overrideUid - always replace any existing UID with an internally generated one (implies generateUID = true)
  * <p>
- * To import multiple different components use {@link ImportCalendars}.
  */
 @CommandLine.Command(name = "create", description = "Create a new calendar")
 public class CreateCalendar extends AbstractCalendarCommand<Uid> {
