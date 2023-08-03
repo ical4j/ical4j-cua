@@ -60,6 +60,10 @@ scmVersion {
     }
     versionCreator 'versionWithBranch'
     branchVersionCreator = ['main': 'simple']
+    nextVersion {
+        suffix = 'pre'
+        separator = '-'
+    }
 }
 
 group = 'org.ical4j'
