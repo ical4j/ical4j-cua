@@ -5,7 +5,9 @@ import picocli.CommandLine;
 @CommandLine.Command(name = "calendar", description = "Command group for calendar operations",
         subcommands = {GetCalendar.class, ListCalendars.class,
         CreateCalendar.class, UpdateCalendar.class,
-                DeleteCalendar.class, SendCalendarCommand.class, ReceiveCalendarCommand.class},
+                DeleteCalendar.class, SendCalendarCommand.class,
+                ReceiveCalendarCommand.class, FilterCalendars.class,
+        ValidateCalendar.class},
         mixinStandardHelpOptions = true)
 public class CalendarGroup {
 

@@ -6,6 +6,8 @@ import com.fasterxml.jackson.databind.PropertyName;
 import com.fasterxml.jackson.databind.module.SimpleModule;
 import com.fasterxml.jackson.dataformat.xml.XmlMapper;
 import net.fortuna.ical4j.model.Calendar;
+import net.fortuna.ical4j.validate.ValidationReport;
+import net.fortuna.ical4j.validate.ValidationResult;
 import org.mnode.ical4j.serializer.JCalSerializer;
 import org.mnode.ical4j.serializer.XCalSerializer;
 
@@ -19,10 +21,18 @@ public interface DefaultOutputHandlers {
         return System.out::println;
     }
 
-    static <T extends List<?>> Consumer<T> STDOUT_LIST_PRINTER() {
-        return (t) -> {
-            t.forEach(System.out::println);
+    static Consumer<ValidationResult> STDOUT_REPORT_PRINTER() {
+        return validationResult -> {
+            try {
+                new ValidationReport().output(validationResult, System.out);
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
         };
+    }
+
+    static <T extends List<?>> Consumer<T> STDOUT_LIST_PRINTER() {
+        return (t) -> t.forEach(System.out::println);
     }
 
     static <T> Consumer<T> STDOUT_JCAL_PRINTER() {
