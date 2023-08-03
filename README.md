@@ -1,12 +1,24 @@
-# ical4j-cua
+# iCal4j Command Line
 
-A user agent service for producing iTIP-compatible calendar data
+A command framework for managing iCalendar and vCard data.
+
+## System Properties
+
+The following table describes System properties applicable to the iCal4j User Agent.
+
+
+| System Property                   | Description                                                                     | Value                                                | Default                                      |
+|-----------------------------------|---------------------------------------------------------------------------------|------------------------------------------------------|----------------------------------------------|
+| org.ical4j.command.prodid       | An application identifier used as the value for the iCalendar `PRODID` property | A string (e.g. `-//Apple Inc.//Mac OS X 10.8.5//EN`) | `-//iCal4j//User Agent//EN`                  |
+| org.ical4j.command.organizer    | The default URI used as the value for the iCalendar `ORGANIZER` property        | A URI (e.g. `mailto:johnd@example.com`)              | -                                            |
+| org.ical4j.command.uidgenerator | The `UidGenerator` implementation used to create `UID` properties               | A fully qualified class name                         | `net.fortuna.ical4j.util.RandomUidGenerator` |
+ 
 
 ## Command Line Usage
 
 ### Publish a collection of events
 
-    ical4j-user-agent/bin/ical4j-user-agent publish -F ./Australian32Holidays.ics
+    ical4j/bin/ical4j publish -F ./Australian32Holidays.ics
 
 Result:
 
@@ -25,100 +37,5 @@ DTEND;VALUE=DATE:20020127
 ORGANIZER:johnd@example.com
 SEQUENCE:0
 END:VEVENT
-BEGIN:VEVENT
-UID:D4164CA4-C414-11D6-BA97-003065F198AC
-DTSTAMP:20020906T094459Z
-SUMMARY:Good Friday
-DTSTART;VALUE=DATE:20020329
-DTEND;VALUE=DATE:20020330
-ORGANIZER:johnd@example.com
-SEQUENCE:0
-END:VEVENT
-BEGIN:VEVENT
-UID:D416509A-C414-11D6-BA97-003065F198AC
-DTSTAMP:20020906T094459Z
-SUMMARY:Easter Monday
-DTSTART;VALUE=DATE:20020401
-DTEND;VALUE=DATE:20020402
-ORGANIZER:johnd@example.com
-SEQUENCE:0
-END:VEVENT
-BEGIN:VEVENT
-UID:D41654CC-C414-11D6-BA97-003065F198AC
-DTSTAMP:20020906T094459Z
-SUMMARY:ANZAC Day
-RRULE:FREQ=YEARLY;INTERVAL=1;BYMONTH=4
-DTSTART;VALUE=DATE:20020425
-DTEND;VALUE=DATE:20020426
-ORGANIZER:johnd@example.com
-SEQUENCE:0
-END:VEVENT
-BEGIN:VEVENT
-UID:D41658EB-C414-11D6-BA97-003065F198AC
-DTSTAMP:20020906T094459Z
-SUMMARY:Queen's Birthday
-RRULE:FREQ=YEARLY;INTERVAL=1;BYMONTH=6
-DTSTART;VALUE=DATE:20020610
-DTEND;VALUE=DATE:20020611
-ORGANIZER:johnd@example.com
-SEQUENCE:0
-END:VEVENT
-BEGIN:VEVENT
-UID:D41661F7-C414-11D6-BA97-003065F198AC
-DTSTAMP:20020906T094459Z
-SUMMARY:Christmas
-RRULE:FREQ=YEARLY;INTERVAL=1;BYMONTH=12
-DTSTART;VALUE=DATE:20021225
-DTEND;VALUE=DATE:20021226
-ORGANIZER:johnd@example.com
-SEQUENCE:0
-END:VEVENT
-BEGIN:VEVENT
-UID:D41666AF-C414-11D6-BA97-003065F198AC
-DTSTAMP:20020906T094459Z
-SUMMARY:Boxing Day
-RRULE:FREQ=YEARLY;INTERVAL=1;BYMONTH=12
-DTSTART;VALUE=DATE:20021226
-DTEND;VALUE=DATE:20021227
-ORGANIZER:johnd@example.com
-SEQUENCE:0
-END:VEVENT
-BEGIN:VEVENT
-UID:D4166AA4-C414-11D6-BA97-003065F198AC
-DTSTAMP:20020906T094459Z
-SUMMARY:Good Friday
-DTSTART;VALUE=DATE:20030418
-DTEND;VALUE=DATE:20030419
-ORGANIZER:johnd@example.com
-SEQUENCE:0
-END:VEVENT
-BEGIN:VEVENT
-UID:D4166EA4-C414-11D6-BA97-003065F198AC
-DTSTAMP:20020906T094459Z
-SUMMARY:Easter Monday
-DTSTART;VALUE=DATE:20030421
-DTEND;VALUE=DATE:20030422
-ORGANIZER:johnd@example.com
-SEQUENCE:0
-END:VEVENT
-BEGIN:VEVENT
-UID:D41658EB-C414-11D6-BA97-003065F198AC
-DTSTAMP:20020906T094500Z
-RECURRENCE-ID;TZID=Asia/Hong_Kong:20030610T000000
-DTSTART;VALUE=DATE:20030609
-DTEND;VALUE=DATE:20030610
-ORGANIZER:johnd@example.com
-SEQUENCE:0
-END:VEVENT
-BEGIN:VEVENT
-UID:D41672C8-C414-11D6-BA97-003065F198AC
-DTSTAMP:20020906T094500Z
-SUMMARY:New Year
-RRULE:FREQ=YEARLY;INTERVAL=1;BYMONTH=1
-DTSTART;VALUE=DATE:20020101
-DTEND;VALUE=DATE:20020102
-ORGANIZER:johnd@example.com
-SEQUENCE:0
-END:VEVENT
-END:VCALENDAR
+...
 ```

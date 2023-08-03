@@ -1,5 +1,5 @@
 plugins {
-    id 'java'
+    id 'groovy'
     id "biz.aQute.bnd.builder" version "$bndVersion"
     id 'maven-publish'
     id 'signing'
@@ -10,26 +10,34 @@ plugins {
 repositories {
     mavenCentral()
     maven {
-        url 'https://oss.sonatype.org/content/repositories/snapshots/'
+        url 'https://oss.sonatype.org/content/repositories/snapshots'
     }
 }
 
 sourceCompatibility = 1.8
 targetCompatibility = 1.8
 
+java {
+    withJavadocJar()
+    withSourcesJar()
+}
+
 dependencies {
-    implementation "org.mnode.ical4j:ical4j:$ical4jVersion"
+    implementation "org.ical4j:ical4j-connector-api:$ical4jConnectorVersion",
+            "org.ical4j:ical4j-integration-api:$ical4jIntegrationVersion"
 
     implementation "org.slf4j:slf4j-api:$slf4jVersion",
             "org.slf4j:slf4j-log4j12:$slf4jVersion",
             "org.apache.logging.log4j:log4j:$log4jVersion"
 
-    implementation ("org.eclipse.jetty:jetty-server:$jettyVersion") {
-        exclude group: 'org.slf4j', module: 'slf4j-api'
-    }
-    implementation ("org.eclipse.jetty:jetty-servlet:$jettyVersion") {
-        exclude group: 'org.slf4j', module: 'slf4j-api'
-    }
+//    implementation ("org.eclipse.jetty:jetty-server:$jettyVersion") {
+//        exclude group: 'org.slf4j', module: 'slf4j-api'
+//    }
+//    implementation ("org.eclipse.jetty:jetty-servlet:$jettyVersion") {
+//        exclude group: 'org.slf4j', module: 'slf4j-api'
+//    }
+//    implementation 'org.glassfish.jersey.containers:jersey-container-jetty-http:3.1.1',
+//            'org.glassfish.jersey.inject:jersey-hk2:3.1.1'
 
     implementation "info.picocli:picocli:$picocliVersion"
 
@@ -38,12 +46,15 @@ dependencies {
             'org.osgi:org.osgi.service.component.annotations:1.5.0',
             'org.osgi:org.osgi.service.metatype.annotations:1.4.1',
             'org.osgi:org.osgi.annotation:6.0.0'
+    // spock
+    testImplementation platform("org.spockframework:spock-bom:2.1-groovy-3.0"),
+            "org.spockframework:spock-core"
 
 }
 
 scmVersion {
     tag {
-        prefix = 'ical4j-cua-'
+        prefix = 'ical4j-command-'
     }
     versionCreator 'versionWithBranch'
     branchVersionCreator = ['main': 'simple']
@@ -63,23 +74,9 @@ jar {
     }
 }
 
-task javadocJar(type: Jar, dependsOn: javadoc) {
-    archiveClassifier.set('javadoc')
-    from 'build/docs/javadoc'
-}
-
-task sourcesJar(type: Jar) {
-    from sourceSets.main.allSource
-    archiveClassifier.set('sources')
-}
-
-artifacts {
-    archives javadocJar
-    archives sourcesJar
-}
-
 application {
-    mainClass = 'org.ical4j.cua.ICalendarUserAgentMain'
+    mainClass = 'org.ical4j.command.CommandMain'
+    applicationName = 'ical4j'
 }
 
 ext {
@@ -88,19 +85,17 @@ ext {
 
 publishing {
     publications {
-        ical4j_cua(MavenPublication) {
+        ical4j_command(MavenPublication) {
             from components.java
-            artifact javadocJar
-            artifact sourcesJar
             pom.withXml {
                 asNode().appendNode('name', project.name)
                 asNode().appendNode('description', project.description)
                 asNode().appendNode('url', 'http://ical4j.github.io')
 
                 def scmNode = asNode().appendNode('scm')
-                scmNode.appendNode('url', 'https://github.com/ical4j/ical4j-user-agent')
-                scmNode.appendNode('connection', 'scm:git@github.com:ical4j/ical4j-user-agent.git')
-                scmNode.appendNode('developerConnection', 'scm:git@github.com:ical4j/ical4j-user-agent.git')
+                scmNode.appendNode('url', 'https://github.com/ical4j/ical4j-command')
+                scmNode.appendNode('connection', 'scm:git@github.com:ical4j/ical4j-command.git')
+                scmNode.appendNode('developerConnection', 'scm:git@github.com:ical4j/ical4j-command.git')
 
                 def licenseNode = asNode().appendNode('licenses').appendNode('license')
                 licenseNode.appendNode('name', 'iCal4j - License')
@@ -128,5 +123,5 @@ publishing {
 
 signing {
     required { isReleaseVersion }
-    sign publishing.publications.ical4j_cua
+    sign publishing.publications.ical4j_command
 }
