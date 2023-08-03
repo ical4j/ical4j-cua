@@ -10,7 +10,7 @@ plugins {
 repositories {
     mavenCentral()
     maven {
-        url 'https://oss.sonatype.org/content/repositories/snapshots/'
+        url 'https://oss.sonatype.org/content/repositories/snapshots'
     }
 }
 
@@ -54,7 +54,7 @@ dependencies {
 
 scmVersion {
     tag {
-        prefix = 'ical4j-cua-'
+        prefix = 'ical4j-command-'
     }
     versionCreator 'versionWithBranch'
     branchVersionCreator = ['main': 'simple']
@@ -93,9 +93,9 @@ publishing {
                 asNode().appendNode('url', 'http://ical4j.github.io')
 
                 def scmNode = asNode().appendNode('scm')
-                scmNode.appendNode('url', 'https://github.com/ical4j/ical4j-user-agent')
-                scmNode.appendNode('connection', 'scm:git@github.com:ical4j/ical4j-user-agent.git')
-                scmNode.appendNode('developerConnection', 'scm:git@github.com:ical4j/ical4j-user-agent.git')
+                scmNode.appendNode('url', 'https://github.com/ical4j/ical4j-command')
+                scmNode.appendNode('connection', 'scm:git@github.com:ical4j/ical4j-command.git')
+                scmNode.appendNode('developerConnection', 'scm:git@github.com:ical4j/ical4j-command.git')
 
                 def licenseNode = asNode().appendNode('licenses').appendNode('license')
                 licenseNode.appendNode('name', 'iCal4j - License')
