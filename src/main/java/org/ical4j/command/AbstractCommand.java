@@ -9,19 +9,24 @@ import java.util.function.Consumer;
  */
 public abstract class AbstractCommand<T> implements Callable<Integer> {
 
-    private Consumer<T> consumer;
+    /**
+     * Consumer of the command result as provided by subclass implementations.
+     */
+    private final Consumer<T> consumer;
 
+    /**
+     * Default constructor. Prints command result to stdout.
+     */
     public AbstractCommand() {
         this.consumer = DefaultOutputHandlers.STDOUT_PRINTER();
     }
 
+    /**
+     *
+     * @param consumer the consumer of the command result.
+     */
     public AbstractCommand(Consumer<T> consumer) {
         this.consumer = consumer;
-    }
-
-    public AbstractCommand<T> withConsumer(Consumer<T> consumer) {
-        this.consumer = consumer;
-        return this;
     }
 
     public final Consumer<T> getConsumer() {
