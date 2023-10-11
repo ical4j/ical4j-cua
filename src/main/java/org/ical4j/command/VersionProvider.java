@@ -19,8 +19,8 @@ public class VersionProvider implements CommandLine.IVersionProvider {
 
     @Override
     public String[] getVersion() {
-        return new String[] {"iCal4j Command " + commandVersion,
-                "\niCal4j: " + ical4jVersion, "\nJVM: " + javaVersion
+        return new String[] {String.format("iCal4j Command %s (ical4j=%s, jvm=%s)",
+                commandVersion, ical4jVersion, javaVersion)
         };
     }
 }
