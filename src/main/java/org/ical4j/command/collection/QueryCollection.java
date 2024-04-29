@@ -1,6 +1,5 @@
 package org.ical4j.command.collection;
 
-import org.ical4j.command.AbstractCollectionCommand;
 import org.ical4j.connector.ObjectCollection;
 import org.ical4j.connector.ObjectStore;
 import picocli.CommandLine;
@@ -18,11 +17,11 @@ public class QueryCollection extends AbstractCollectionCommand<ObjectCollection<
         super();
     }
 
-    public QueryCollection(Consumer<List<?>> consumer, ObjectStore<ObjectCollection<?>> store) {
+    public QueryCollection(Consumer<List<?>> consumer, ObjectStore<?, ObjectCollection<?>> store) {
         super(DEFAULT_COLLECTION, consumer, store);
     }
 
-    public QueryCollection(String collectionName, Consumer<List<?>> consumer, ObjectStore<ObjectCollection<?>> store) {
+    public QueryCollection(String collectionName, Consumer<List<?>> consumer, ObjectStore<?, ObjectCollection<?>> store) {
         super(collectionName, consumer, store);
     }
 

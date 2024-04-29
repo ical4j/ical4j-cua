@@ -1,6 +1,7 @@
 package org.ical4j.command.calendar
 
 import net.fortuna.ical4j.model.Calendar
+import org.ical4j.command.collection.UpdateCalendar
 import org.ical4j.connector.CalendarCollection
 import org.ical4j.connector.CalendarStore
 import spock.lang.Specification
@@ -17,7 +18,7 @@ class UpdateCalendarTest extends Specification {
         Calendar calendar = []
 
         when: 'a update calendar command is run'
-        new UpdateCalendar('testCollection', store).withCalendar(calendar).run()
+        new UpdateCalendar('testCollection', store).withCalendar(calendar).call()
 
         then: 'collection merge is invoked'
         1 * collection.merge(calendar)

@@ -2,48 +2,25 @@ package org.ical4j.command.vcard;
 
 import net.fortuna.ical4j.data.ParserException;
 import net.fortuna.ical4j.vcard.VCard;
-import net.fortuna.ical4j.vcard.VCardBuilder;
-import org.ical4j.command.AbstractCollectionCommand;
-import org.ical4j.connector.CardCollection;
-import org.ical4j.connector.ObjectStore;
+import org.ical4j.command.AbstractCommand;
+import org.ical4j.command.InputOptions;
 import picocli.CommandLine;
 
-import java.io.FileReader;
 import java.io.IOException;
-import java.net.URL;
 import java.util.function.Consumer;
 
-public abstract class AbstractCardCommand<T> extends AbstractCollectionCommand<CardCollection, T> {
+public abstract class AbstractCardCommand<T> extends AbstractCommand<T> {
 
     @CommandLine.ArgGroup(multiplicity = "1")
-    protected Input input;
-
-    protected static class Input {
-        @CommandLine.Option(names = {"-url"}, required = true)
-        protected URL url;
-
-        @CommandLine.Option(names = {"-file"}, required = true)
-        protected String filename;
-
-        @CommandLine.Option(names = {"-", "--stdin"}, required = true)
-        protected boolean stdin;
-    }
+    protected InputOptions input;
 
     private VCard card;
 
     public AbstractCardCommand() {
     }
 
-    public AbstractCardCommand(String collectionName) {
-        super(collectionName);
-    }
-
-    public AbstractCardCommand(String collectionName, Consumer<T> consumer) {
-        super(collectionName, consumer);
-    }
-
-    public AbstractCardCommand(String collectionName, ObjectStore<CardCollection> store) {
-        super(collectionName, store);
+    public AbstractCardCommand(Consumer<T> consumer) {
+        super(consumer);
     }
 
     public AbstractCardCommand<T> withCard(VCard card) {
@@ -53,13 +30,7 @@ public abstract class AbstractCardCommand<T> extends AbstractCollectionCommand<C
 
     public VCard getCard() throws ParserException, IOException {
         if (card == null) {
-            if (input.filename != null) {
-                card = new VCardBuilder(new FileReader(input.filename)).build();
-            } else if (input.url != null) {
-                card = new VCardBuilder(input.url.openStream()).build();
-            } else if (input.stdin) {
-                card = new VCardBuilder(System.in).build();
-            }
+            card = input.toVCard();
         }
         return card;
     }

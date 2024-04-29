@@ -1,6 +1,5 @@
 package org.ical4j.command.collection;
 
-import org.ical4j.command.AbstractCollectionCommand;
 import org.ical4j.connector.ObjectCollection;
 import org.ical4j.connector.ObjectNotFoundException;
 import org.ical4j.connector.ObjectStore;
@@ -19,18 +18,18 @@ public class ListObjectUids extends AbstractCollectionCommand<ObjectCollection<?
         super(DEFAULT_COLLECTION, STDOUT_LIST_PRINTER());
     }
 
-    public ListObjectUids(ObjectStore<ObjectCollection<?>> store) {
+    public ListObjectUids(ObjectStore<?, ObjectCollection<?>> store) {
         super(DEFAULT_COLLECTION, STDOUT_LIST_PRINTER(), store);
     }
 
-    public ListObjectUids(String collectionName, ObjectStore<ObjectCollection<?>> store) {
+    public ListObjectUids(String collectionName, ObjectStore<?, ObjectCollection<?>> store) {
         super(collectionName, STDOUT_LIST_PRINTER(), store);
     }
 
     @Override
     public Integer call() {
         try {
-            getConsumer().accept(getCollection().listObjectUids());
+            getConsumer().accept(getCollection().listObjectUIDs());
         } catch (ObjectStoreException | ObjectNotFoundException e) {
             throw new RuntimeException(e);
         }

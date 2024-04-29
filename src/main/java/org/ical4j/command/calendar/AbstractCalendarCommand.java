@@ -1,16 +1,12 @@
 package org.ical4j.command.calendar;
 
-import net.fortuna.ical4j.data.CalendarBuilder;
 import net.fortuna.ical4j.data.ParserException;
 import net.fortuna.ical4j.model.Calendar;
-import net.fortuna.ical4j.util.Calendars;
-import org.ical4j.command.AbstractCollectionCommand;
-import org.ical4j.connector.CalendarCollection;
-import org.ical4j.connector.ObjectStore;
+import org.ical4j.command.AbstractCommand;
+import org.ical4j.command.InputOptions;
 import picocli.CommandLine;
 
 import java.io.IOException;
-import java.net.URL;
 import java.util.function.Consumer;
 
 /**
@@ -19,39 +15,31 @@ import java.util.function.Consumer;
  *
  * @param <T> the command result consumer
  */
-public abstract class AbstractCalendarCommand<T> extends AbstractCollectionCommand<CalendarCollection, T> {
+public abstract class AbstractCalendarCommand<T> extends AbstractCommand<T> {
 
+    /**
+     * One and only one input option required when invoked via command line.
+     */
     @CommandLine.ArgGroup(multiplicity = "1")
-    protected Input input;
+    protected InputOptions input;
 
-    protected static class Input {
-        @CommandLine.Option(names = {"-url"}, required = true)
-        protected URL url;
-
-        @CommandLine.Option(names = {"-file"}, required = true)
-        protected String filename;
-
-        @CommandLine.Option(names = {"-", "--stdin"}, required = true)
-        protected boolean stdin;
-    }
-
+    /**
+     * Target calendar object loaded via specified input on command line, or explicitly set otherwise.
+     */
     private Calendar calendar;
 
     public AbstractCalendarCommand() {
     }
 
-    public AbstractCalendarCommand(String collectionName) {
-        super(collectionName);
+    public AbstractCalendarCommand(Consumer<T> consumer) {
+        super(consumer);
     }
 
-    public AbstractCalendarCommand(String collectionName, Consumer<T> consumer) {
-        super(collectionName, consumer);
-    }
-
-    public AbstractCalendarCommand(String collectionName, ObjectStore<CalendarCollection> store) {
-        super(collectionName, store);
-    }
-
+    /**
+     * Set the target of the command execution.
+     * @param calendar
+     * @return
+     */
     public AbstractCalendarCommand<T> withCalendar(Calendar calendar) {
         this.calendar = calendar;
         return this;
@@ -59,14 +47,7 @@ public abstract class AbstractCalendarCommand<T> extends AbstractCollectionComma
 
     public Calendar getCalendar() throws ParserException, IOException {
         if (calendar == null) {
-            if (input.filename != null) {
-                calendar = Calendars.load(input.filename);
-            } else if (input.url != null) {
-                calendar = Calendars.load(input.url);
-            } else if (input.stdin) {
-                final CalendarBuilder builder = new CalendarBuilder();
-                calendar = builder.build(System.in);
-            }
+            calendar = input.toCalendar();
         }
         return calendar;
     }
