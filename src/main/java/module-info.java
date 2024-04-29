@@ -9,4 +9,5 @@ module ical4j.command {
     requires com.fasterxml.jackson.databind;
     requires com.fasterxml.jackson.dataformat.xml;
     requires ical4j.serializer;
+    requires org.slf4j;
 }

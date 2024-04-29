@@ -16,6 +16,7 @@ public class CommandMain {
     }
 
     public static void main(String[] args) {
-        new CommandLine(new CommandMain()).execute(args);
+        int exitCode = new CommandLine(new CommandMain()).execute(args);
+        System.exit(exitCode);
     }
 }
