@@ -27,6 +27,13 @@ build:
 installDist:
 	./gradlew installDist
 
+dist:
+	./gradlew distZip
+
+uploadDist: dist
+	AWS_PROFILE=$(AWS_PROFILE) aws s3 sync --endpoint=$(AWS_ENDPOINT) --acl public-read --exclude "*" --include "*.zip" \
+		build/distributions $(DIST_BUCKET)/releases
+
 changelog:
 	git log "$(CHANGELOG_START_TAG)...$(CHANGELOG_END_TAG)" \
     	--pretty=format:'* %s [View commit](http://github.com/ical4j/ical4j-command/commit/%H)' --reverse | grep -v Merge
@@ -36,6 +43,9 @@ currentVersion:
 
 markNextVersion:
 	./gradlew markNextVersion -Prelease.version=$(NEXT_VERSION)
+
+install:
+	./gradlew publishToMavenLocal
 
 verify:
 	./gradlew verify
