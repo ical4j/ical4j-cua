@@ -7,7 +7,7 @@ import picocli.CommandLine;
 
 import java.util.function.Consumer;
 
-@CommandLine.Command(name = "receive", description = "Receive a calendar from a channel")
+@CommandLine.Command(name = "receive-calendar", description = "Receive a calendar from a channel")
 public class ReceiveCalendarCommand extends AbstractIngressChannelCommand<Calendar, Calendar> {
 
     private long timeout;

@@ -3,7 +3,7 @@ package org.ical4j.command.channel;
 import net.fortuna.ical4j.vcard.VCard;
 import picocli.CommandLine;
 
-@CommandLine.Command(name = "send", description = "Send a card on a channel")
+@CommandLine.Command(name = "send-card", description = "Send a card on a channel")
 public class SendVCardCommand extends AbstractEgressChannelCommand<VCard, Void> {
 
     private VCard card;

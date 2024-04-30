@@ -6,7 +6,7 @@ import picocli.CommandLine;
 
 import java.util.function.Consumer;
 
-@CommandLine.Command(name = "update", description = "Update an object collection")
+@CommandLine.Command(name = "update-collection", description = "Update an object collection")
 public class UpdateCollection extends AbstractStoreCommand<ObjectCollection<?>, Void> {
 
     public UpdateCollection() {

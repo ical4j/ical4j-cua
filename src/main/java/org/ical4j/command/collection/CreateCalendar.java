@@ -34,7 +34,7 @@ import static org.ical4j.connector.ObjectCollection.DEFAULT_COLLECTION;
  * * overrideUid - always replace any existing UID with an internally generated one (implies generateUID = true)
  * <p>
  */
-@CommandLine.Command(name = "create", description = "Create a new calendar")
+@CommandLine.Command(name = "create-calendar", description = "Create a new calendar")
 public class CreateCalendar extends AbstractCollectionCommand<CalendarCollection, String> {
 
     @CommandLine.ArgGroup(multiplicity = "1")

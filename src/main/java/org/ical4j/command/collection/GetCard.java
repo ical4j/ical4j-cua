@@ -6,7 +6,7 @@ import picocli.CommandLine;
 
 import java.util.function.Consumer;
 
-@CommandLine.Command(name = "get", description = "Retrieve an existing card")
+@CommandLine.Command(name = "get-card", description = "Retrieve an existing card")
 public class GetCard extends AbstractCollectionCommand<CardCollection, VCard> {
 
     @CommandLine.Option(names = {"-uid"})

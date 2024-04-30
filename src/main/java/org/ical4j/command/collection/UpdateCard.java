@@ -12,7 +12,7 @@ import picocli.CommandLine;
 import java.io.IOException;
 import java.util.function.Consumer;
 
-@CommandLine.Command(name = "update", description = "Update an existing card")
+@CommandLine.Command(name = "update-card", description = "Update an existing card")
 public class UpdateCard extends AbstractCollectionCommand<CardCollection, Uid[]> {
 
     @CommandLine.ArgGroup(multiplicity = "1")

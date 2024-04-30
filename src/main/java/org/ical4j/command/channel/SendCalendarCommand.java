@@ -3,7 +3,7 @@ package org.ical4j.command.channel;
 import net.fortuna.ical4j.model.Calendar;
 import picocli.CommandLine;
 
-@CommandLine.Command(name = "send", description = "Send a calendar on a channel")
+@CommandLine.Command(name = "send-calendar", description = "Send a calendar on a channel")
 public class SendCalendarCommand extends AbstractEgressChannelCommand<Calendar, Void> {
 
     private Calendar calendar;

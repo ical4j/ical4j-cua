@@ -8,7 +8,7 @@ import java.util.function.Consumer;
 
 import static org.ical4j.connector.ObjectCollection.DEFAULT_COLLECTION;
 
-@CommandLine.Command(name = "delete", description = "Delete an existing calendar")
+@CommandLine.Command(name = "delete-calendar", description = "Delete an existing calendar")
 public class DeleteCalendar extends AbstractCollectionCommand<CalendarCollection, Calendar> {
 
     @CommandLine.Option(names = {"-uid"})

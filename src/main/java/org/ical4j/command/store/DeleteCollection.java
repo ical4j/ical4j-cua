@@ -11,7 +11,7 @@ import java.util.function.Consumer;
 /**
  * A command to delete an existing collection from an object store.
  */
-@CommandLine.Command(name = "delete", description = "Purge a collection")
+@CommandLine.Command(name = "delete-collection", description = "Purge a collection")
 public class DeleteCollection extends AbstractStoreCommand<ObjectCollection<?>, ObjectCollection<?>> {
 
     @CommandLine.Option(names = {"-name"})

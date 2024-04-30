@@ -10,7 +10,7 @@ import java.util.function.Consumer;
 /**
  * A command to create a new collection for a specified object store.
  */
-@CommandLine.Command(name = "create", description = "Create a new collection")
+@CommandLine.Command(name = "create-collection", description = "Create a new collection")
 public class CreateCollection extends AbstractStoreCommand<ObjectCollection<?>, ObjectCollection<?>> {
 
     @CommandLine.Option(names = {"-name"})

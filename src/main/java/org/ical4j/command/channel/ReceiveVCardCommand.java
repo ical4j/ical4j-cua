@@ -7,7 +7,7 @@ import picocli.CommandLine;
 
 import java.util.function.Consumer;
 
-@CommandLine.Command(name = "receive", description = "Receive a card from a channel")
+@CommandLine.Command(name = "receive-card", description = "Receive a card from a channel")
 public class ReceiveVCardCommand extends AbstractIngressChannelCommand<VCard, VCard> {
 
     private long timeout;

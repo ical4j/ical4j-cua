@@ -12,7 +12,7 @@ import java.util.function.Consumer;
 
 import static org.ical4j.connector.ObjectCollection.DEFAULT_COLLECTION;
 
-@CommandLine.Command(name = "update", description = "Update an existing calendar")
+@CommandLine.Command(name = "update-calendar", description = "Update an existing calendar")
 public class UpdateCalendar extends AbstractCollectionCommand<CalendarCollection, Uid[]> {
 
     @CommandLine.ArgGroup(multiplicity = "1")

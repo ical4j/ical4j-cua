@@ -4,9 +4,11 @@ import net.fortuna.ical4j.util.CompatibilityHints;
 import picocli.CommandLine;
 
 @CommandLine.Command(name = "ical4j", description = "iCal4j Command Framework",
-        subcommands = {CollectionCommandGroup.class, CalendarCommandGroup.class, CardCommandGroup.class,
-        TemplateCommandGroup.class, StoreCommandGroup.class, ChannelCommandGroup.class},
-        mixinStandardHelpOptions = true, versionProvider = VersionProvider.class)
+        subcommands = {CalendarCommandGroup.class, CardCommandGroup.class, CollectionCommandGroup.class,
+                ChannelCommandGroup.class, StoreCommandGroup.class, TemplateCommandGroup.class,
+        ConfigureCommand.class},
+        scope = CommandLine.ScopeType.INHERIT, mixinStandardHelpOptions = true, versionProvider = VersionProvider.class,
+        footer = "Copyright (c) Ben Fortuna", showAtFileInUsageHelp = true)
 public class CommandMain {
 
     @CommandLine.Option(names = "-lenient", description = "Enable lenient parsing", scope = CommandLine.ScopeType.INHERIT)

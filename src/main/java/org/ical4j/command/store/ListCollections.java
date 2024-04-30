@@ -9,7 +9,7 @@ import picocli.CommandLine;
 import java.util.List;
 import java.util.function.Consumer;
 
-@CommandLine.Command(name = "list", description = "List collections in an object store")
+@CommandLine.Command(name = "list-collections", description = "List collections in an object store")
 public class ListCollections<T extends ObjectCollection<?>> extends AbstractStoreCommand<T, List<T>> {
 
     public ListCollections() {

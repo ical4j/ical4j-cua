@@ -15,7 +15,7 @@ import java.util.function.Consumer;
 
 import static org.ical4j.connector.ObjectCollection.DEFAULT_COLLECTION;
 
-@CommandLine.Command(name = "create", description = "Create a new card")
+@CommandLine.Command(name = "create-card", description = "Create a new card")
 public class CreateCard extends AbstractCollectionCommand<CardCollection, String> {
 
     @CommandLine.ArgGroup(multiplicity = "1")

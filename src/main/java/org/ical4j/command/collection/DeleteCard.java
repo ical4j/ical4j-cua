@@ -6,7 +6,7 @@ import picocli.CommandLine;
 
 import java.util.function.Consumer;
 
-@CommandLine.Command(name = "delete", description = "Delete an existing card")
+@CommandLine.Command(name = "delete-card", description = "Delete an existing card")
 public class DeleteCard extends AbstractCollectionCommand<CardCollection, VCard> {
 
     @CommandLine.Option(names = {"-uid"})

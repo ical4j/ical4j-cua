@@ -8,7 +8,7 @@ import picocli.CommandLine;
 
 import java.util.function.Consumer;
 
-@CommandLine.Command(name = "get", description = "Retrieve a collection")
+@CommandLine.Command(name = "get-collection-details", description = "Retrieve a collection")
 public class GetCollectionDetails extends AbstractStoreCommand<ObjectCollection<?>, ObjectCollection<?>> {
 
     @CommandLine.Option(names = {"-name"})

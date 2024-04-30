@@ -15,7 +15,7 @@ import java.util.function.Consumer;
 import static org.ical4j.command.DefaultOutputHandlers.STDOUT_LIST_PRINTER;
 import static org.ical4j.connector.ObjectCollection.DEFAULT_COLLECTION;
 
-@CommandLine.Command(name = "list", description = "List all existing calendars")
+@CommandLine.Command(name = "list-calendars", description = "List all existing calendars")
 public class ListCalendars extends AbstractCollectionCommand<CalendarCollection, List<Calendar>> {
 
     public ListCalendars() {

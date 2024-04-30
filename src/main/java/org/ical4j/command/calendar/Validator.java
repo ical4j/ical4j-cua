@@ -10,8 +10,7 @@ import picocli.CommandLine;
 import java.io.IOException;
 import java.io.PrintWriter;
 
-@CommandLine.Command(name = "validator", description = "Produce a validation report for input data",
-        subcommands = {CommandLine.HelpCommand.class})
+@CommandLine.Command(name = "validator", description = "Produce a validation report for input data")
 public class Validator extends AbstractCalendarCommand<ValidationResult> {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(Validator.class);

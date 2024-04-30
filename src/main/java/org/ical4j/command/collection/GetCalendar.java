@@ -9,7 +9,7 @@ import picocli.CommandLine;
 
 import java.util.function.Consumer;
 
-@CommandLine.Command(name = "get", description = "Retrieve an existing calendar")
+@CommandLine.Command(name = "get-calendar", description = "Retrieve an existing calendar")
 public class GetCalendar extends AbstractCollectionCommand<CalendarCollection, Calendar> {
 
     @CommandLine.Option(names = {"-uid"})

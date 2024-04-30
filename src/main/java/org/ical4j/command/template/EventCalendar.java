@@ -12,8 +12,7 @@ import picocli.CommandLine;
 import java.io.PrintWriter;
 import java.util.function.Consumer;
 
-@CommandLine.Command(name = "event", description = "Create a new event calendar object",
-        subcommands = {CommandLine.HelpCommand.class})
+@CommandLine.Command(name = "event", description = "Create a new event calendar object")
 public class EventCalendar extends AbstractCommand<Calendar> implements InputHandler {
 
     @CommandLine.Option(names = "--summary", interactive = true)
