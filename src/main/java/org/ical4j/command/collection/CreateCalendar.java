@@ -4,10 +4,13 @@ import net.fortuna.ical4j.data.ParserException;
 import net.fortuna.ical4j.model.Calendar;
 import net.fortuna.ical4j.model.ConstraintViolationException;
 import org.ical4j.command.InputOptions;
+import org.ical4j.command.calendar.FilterCalendar;
 import org.ical4j.connector.CalendarCollection;
 import org.ical4j.connector.CalendarStore;
 import org.ical4j.connector.ObjectNotFoundException;
 import org.ical4j.connector.ObjectStoreException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import picocli.CommandLine;
 
 import java.io.IOException;
@@ -36,6 +39,8 @@ import static org.ical4j.connector.ObjectCollection.DEFAULT_COLLECTION;
  */
 @CommandLine.Command(name = "create-calendar", description = "Create a new calendar")
 public class CreateCalendar extends AbstractCollectionCommand<CalendarCollection, String> {
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(CreateCalendar.class);
 
     @CommandLine.ArgGroup(multiplicity = "1")
     protected InputOptions input;
@@ -76,7 +81,8 @@ public class CreateCalendar extends AbstractCollectionCommand<CalendarCollection
             getConsumer().accept(getCollection().add(getCalendar()));
         } catch (ObjectStoreException | ConstraintViolationException | ObjectNotFoundException | ParserException |
                  IOException e) {
-            throw new RuntimeException(e);
+            LOGGER.error("Unexpected error", e);
+            return 1;
         }
         return 0;
     }

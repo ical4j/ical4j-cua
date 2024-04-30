@@ -1,11 +1,14 @@
 package org.ical4j.command.collection;
 
 import net.fortuna.ical4j.model.Calendar;
+import org.ical4j.command.calendar.FilterCalendar;
 import org.ical4j.command.collection.AbstractCollectionCommand;
 import org.ical4j.connector.CalendarCollection;
 import org.ical4j.connector.ObjectNotFoundException;
 import org.ical4j.connector.ObjectStore;
 import org.ical4j.connector.ObjectStoreException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import picocli.CommandLine;
 
 import java.util.ArrayList;
@@ -17,6 +20,8 @@ import static org.ical4j.connector.ObjectCollection.DEFAULT_COLLECTION;
 
 @CommandLine.Command(name = "list-calendars", description = "List all existing calendars")
 public class ListCalendars extends AbstractCollectionCommand<CalendarCollection, List<Calendar>> {
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(ListCalendars.class);
 
     public ListCalendars() {
         super(DEFAULT_COLLECTION, STDOUT_LIST_PRINTER());
@@ -43,7 +48,8 @@ public class ListCalendars extends AbstractCollectionCommand<CalendarCollection,
             }
             getConsumer().accept(calendars);
         } catch (ObjectStoreException | ObjectNotFoundException e) {
-            throw new RuntimeException(e);
+            LOGGER.error("Unexpected error", e);
+            return 1;
         }
         return 0;
     }

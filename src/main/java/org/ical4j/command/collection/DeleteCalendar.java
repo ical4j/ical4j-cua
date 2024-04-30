@@ -1,7 +1,10 @@
 package org.ical4j.command.collection;
 
 import net.fortuna.ical4j.model.Calendar;
+import org.ical4j.command.calendar.FilterCalendar;
 import org.ical4j.connector.*;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import picocli.CommandLine;
 
 import java.util.function.Consumer;
@@ -10,6 +13,8 @@ import static org.ical4j.connector.ObjectCollection.DEFAULT_COLLECTION;
 
 @CommandLine.Command(name = "delete-calendar", description = "Delete an existing calendar")
 public class DeleteCalendar extends AbstractCollectionCommand<CalendarCollection, Calendar> {
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(DeleteCalendar.class);
 
     @CommandLine.Option(names = {"-uid"})
     private String calendarUid;
@@ -40,7 +45,8 @@ public class DeleteCalendar extends AbstractCollectionCommand<CalendarCollection
         try {
             getConsumer().accept(getCollection().removeCalendar(calendarUid));
         } catch (ObjectStoreException | FailedOperationException | ObjectNotFoundException e) {
-            throw new RuntimeException(e);
+            LOGGER.error("Unexpected error", e);
+            return 1;
         }
         return 0;
     }

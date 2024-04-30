@@ -4,7 +4,10 @@ import net.fortuna.ical4j.data.ParserException;
 import net.fortuna.ical4j.model.Calendar;
 import net.fortuna.ical4j.model.property.Uid;
 import org.ical4j.command.InputOptions;
+import org.ical4j.command.calendar.FilterCalendar;
 import org.ical4j.connector.*;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import picocli.CommandLine;
 
 import java.io.IOException;
@@ -14,6 +17,8 @@ import static org.ical4j.connector.ObjectCollection.DEFAULT_COLLECTION;
 
 @CommandLine.Command(name = "update-calendar", description = "Update an existing calendar")
 public class UpdateCalendar extends AbstractCollectionCommand<CalendarCollection, Uid[]> {
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(UpdateCalendar.class);
 
     @CommandLine.ArgGroup(multiplicity = "1")
     protected InputOptions input;
@@ -54,7 +59,8 @@ public class UpdateCalendar extends AbstractCollectionCommand<CalendarCollection
             getCollection().merge(getCalendar());
         } catch (ObjectStoreException | FailedOperationException | ObjectNotFoundException | ParserException |
                  IOException e) {
-            throw new RuntimeException(e);
+            LOGGER.error("Unexpected error", e);
+            return 1;
         }
         return 0;
     }

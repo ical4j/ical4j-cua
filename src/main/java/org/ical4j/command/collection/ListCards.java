@@ -1,11 +1,14 @@
 package org.ical4j.command.collection;
 
 import net.fortuna.ical4j.vcard.VCard;
+import org.ical4j.command.calendar.FilterCalendar;
 import org.ical4j.command.collection.AbstractCollectionCommand;
 import org.ical4j.connector.CardCollection;
 import org.ical4j.connector.FailedOperationException;
 import org.ical4j.connector.ObjectNotFoundException;
 import org.ical4j.connector.ObjectStoreException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import picocli.CommandLine;
 
 import java.util.ArrayList;
@@ -17,6 +20,8 @@ import static org.ical4j.connector.ObjectCollection.DEFAULT_COLLECTION;
 
 @CommandLine.Command(name = "list-cards", description = "List all existing cards")
 public class ListCards extends AbstractCollectionCommand<CardCollection, List<VCard>> {
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(ListCards.class);
 
     public ListCards() {
         super(DEFAULT_COLLECTION, STDOUT_LIST_PRINTER());
@@ -35,7 +40,8 @@ public class ListCards extends AbstractCollectionCommand<CardCollection, List<VC
             }
             getConsumer().accept(cards);
         } catch (ObjectStoreException | ObjectNotFoundException | FailedOperationException e) {
-            throw new RuntimeException(e);
+            LOGGER.error("Unexpected error", e);
+            return 1;
         }
         return 0;
     }

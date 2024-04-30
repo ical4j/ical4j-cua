@@ -1,9 +1,12 @@
 package org.ical4j.command.store;
 
+import org.ical4j.command.calendar.FilterCalendar;
 import org.ical4j.connector.ObjectCollection;
 import org.ical4j.connector.ObjectNotFoundException;
 import org.ical4j.connector.ObjectStore;
 import org.ical4j.connector.ObjectStoreException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import picocli.CommandLine;
 
 import java.util.function.Consumer;
@@ -13,6 +16,8 @@ import java.util.function.Consumer;
  */
 @CommandLine.Command(name = "delete-collection", description = "Purge a collection")
 public class DeleteCollection extends AbstractStoreCommand<ObjectCollection<?>, ObjectCollection<?>> {
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(DeleteCollection.class);
 
     @CommandLine.Option(names = {"-name"})
     private String collectionName;
@@ -41,7 +46,8 @@ public class DeleteCollection extends AbstractStoreCommand<ObjectCollection<?>, 
             collection.delete();
             getConsumer().accept(collection);
         } catch (ObjectStoreException | ObjectNotFoundException e) {
-            throw new RuntimeException(e);
+            LOGGER.error("Unexpected error", e);
+            return 1;
         }
         return 0;
     }

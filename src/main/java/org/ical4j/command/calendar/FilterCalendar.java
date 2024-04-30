@@ -5,6 +5,8 @@ import net.fortuna.ical4j.filter.ComponentFilter;
 import net.fortuna.ical4j.filter.FilterExpression;
 import net.fortuna.ical4j.model.Component;
 import net.fortuna.ical4j.model.component.CalendarComponent;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import picocli.CommandLine;
 
 import java.io.IOException;
@@ -16,6 +18,8 @@ import static org.ical4j.command.DefaultOutputHandlers.STDOUT_LIST_PRINTER;
 
 @CommandLine.Command(name = "filter", description = "Query a specified calendar collection using filter expressions")
 public class FilterCalendar extends AbstractCalendarCommand<List<CalendarComponent>> {
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(FilterCalendar.class);
 
     @CommandLine.Option(names = {"-query"})
     private String query;
@@ -36,7 +40,8 @@ public class FilterCalendar extends AbstractCalendarCommand<List<CalendarCompone
             List<CalendarComponent> filtered = getCalendar().getComponents().stream().filter(filter).collect(Collectors.toList());
             getConsumer().accept(filtered);
         } catch (IOException | ParserException e) {
-            throw new RuntimeException(e);
+            LOGGER.error("Unexpected error", e);
+            return 1;
         }
         return 0;
     }

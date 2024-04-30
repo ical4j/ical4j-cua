@@ -1,15 +1,20 @@
 package org.ical4j.command.store;
 
+import org.ical4j.command.calendar.FilterCalendar;
 import org.ical4j.connector.ObjectCollection;
 import org.ical4j.connector.ObjectNotFoundException;
 import org.ical4j.connector.ObjectStore;
 import org.ical4j.connector.ObjectStoreException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import picocli.CommandLine;
 
 import java.util.function.Consumer;
 
 @CommandLine.Command(name = "get-collection-details", description = "Retrieve a collection")
 public class GetCollectionDetails extends AbstractStoreCommand<ObjectCollection<?>, ObjectCollection<?>> {
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(GetCollectionDetails.class);
 
     @CommandLine.Option(names = {"-name"})
     private String collectionName;
@@ -36,7 +41,8 @@ public class GetCollectionDetails extends AbstractStoreCommand<ObjectCollection<
         try {
             getConsumer().accept(getStore().getCollection(collectionName));
         } catch (ObjectStoreException | ObjectNotFoundException e) {
-            throw new RuntimeException(e);
+            LOGGER.error("Unexpected error", e);
+            return 1;
         }
         return 0;
     }

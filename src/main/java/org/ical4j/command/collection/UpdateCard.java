@@ -5,8 +5,11 @@ import net.fortuna.ical4j.model.ConstraintViolationException;
 import net.fortuna.ical4j.vcard.VCard;
 import net.fortuna.ical4j.vcard.property.Uid;
 import org.ical4j.command.InputOptions;
+import org.ical4j.command.calendar.FilterCalendar;
 import org.ical4j.command.collection.AbstractCollectionCommand;
 import org.ical4j.connector.*;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import picocli.CommandLine;
 
 import java.io.IOException;
@@ -14,6 +17,8 @@ import java.util.function.Consumer;
 
 @CommandLine.Command(name = "update-card", description = "Update an existing card")
 public class UpdateCard extends AbstractCollectionCommand<CardCollection, Uid[]> {
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(UpdateCard.class);
 
     @CommandLine.ArgGroup(multiplicity = "1")
     protected InputOptions input;
@@ -50,7 +55,8 @@ public class UpdateCard extends AbstractCollectionCommand<CardCollection, Uid[]>
             getConsumer().accept(getCollection().merge(getCard()));
         } catch (ObjectStoreException | ConstraintViolationException | ObjectNotFoundException | IOException |
                  ParserException e) {
-            throw new RuntimeException(e);
+            LOGGER.error("Unexpected error", e);
+            return 1;
         }
         return 0;
     }
