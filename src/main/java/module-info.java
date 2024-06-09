@@ -10,6 +10,7 @@ module ical4j.command {
     requires com.fasterxml.jackson.dataformat.xml;
     requires ical4j.serializer;
     requires org.slf4j;
+    requires org.apache.logging.log4j.core;
 
     exports org.ical4j.command;
     exports org.ical4j.command.calendar;
