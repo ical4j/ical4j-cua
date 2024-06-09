@@ -36,6 +36,7 @@ dependencies {
     api "org.ical4j:ical4j-connector-api:$ical4jConnectorVersion",
             "org.ical4j:ical4j-integration-api:$ical4jIntegrationVersion",
             "org.ical4j:ical4j-serializer:$ical4jSerializerVersion",
+            "org.mnode.ical4j:ical4j-vcard:$ical4jVCardVersion",
             "org.mnode.ical4j:ical4j:$ical4jVersion"
 
     implementation "org.apache.logging.log4j:log4j-core:$log4jVersion",
